@@ -12,6 +12,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
+    "@react-native-community/datetimepicker": "8.3.0",
+    "@react-native-picker/picker": "2.11.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
@@ -29,6 +32,7 @@
     "expo-system-ui": "~5.0.8",
     "expo-web-browser": "~14.1.6",
     "nativewind": "^4.1.23",
+    "prettier-plugin-tailwindcss": "0.5.11",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.3",
@@ -36,13 +40,12 @@
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1",
+    "react-native-vector-icons": "^10.2.0",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
+    "react-toastify": "^11.0.5",
     "tailwindcss": "3.4.17",
-    "prettier-plugin-tailwindcss": "0.5.11",
-    "@react-native-async-storage/async-storage": "2.1.2",
-    "@react-native-community/datetimepicker": "8.3.0",
-    "@react-native-picker/picker": "2.11.0"
+    "toastify-react-native": "^7.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
