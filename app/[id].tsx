@@ -6,9 +6,10 @@ import { Alert, Button, Text, View } from "react-native";
 const NoteDetails = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
-  const { removeItem } = useAsyncStorage(`${params.title}note`);
-  const handleDelete = async (event) => {
-    event.preventDefault();
+  console.log(params);
+
+  const { removeItem } = useAsyncStorage(params.idn);
+  const handleDelete = async () => {
     Alert.alert("Delete Note", "Do you want to delete this note?", [
       {
         text: "Cancel",
@@ -18,7 +19,7 @@ const NoteDetails = () => {
       {
         text: "Ok",
         onPress: () => {
-          console.log("Note suprimée :", params.title);
+          console.log("Note suprimée :", params?.title);
           removeItem();
           router.navigate("/(tabs)");
         },
@@ -27,29 +28,31 @@ const NoteDetails = () => {
   };
   return (
     <View>
-      <Text>{`
-      Note details:
-      title: ${params.title}
-      date: ${params.date}
-      necessity:${params.necessity}
-      content:${params.content}
-      `}</Text>
+      <Text>
+        Note details:
+        {`
+      title: ${params?.title}
+      date: ${params?.date}
+      necessity:${params?.necessity}
+      content:${params?.content}
+      `}
+      </Text>
       <Button
         title="Edit"
         onPress={() => {
-          router.navigate({
+          router.push({
             pathname: "./(tabs)/noteForm",
             params: {
-              id: `${params.title}`,
-              title: `${params.title}`,
-              date: `${params.date}`,
-              content: `${params.content}`,
-              necessity: `${params.necessity}`,
+              idn: `${params?.idn}`,
+              title: `${params?.title}`,
+              date: `${params?.date}`,
+              content: `${params?.content}`,
+              necessity: `${params?.necessity}`,
             },
           });
         }}
-      ></Button>
-      <Button title="Delete" onPress={handleDelete}></Button>
+      />
+      <Button title="Delete" onPress={handleDelete} />
     </View>
   );
 };
