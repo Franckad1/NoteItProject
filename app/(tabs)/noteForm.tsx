@@ -108,7 +108,7 @@ const NoteForm = () => {
   };
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{ flex: 1, backgroundColor: "#FFD4CA" }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ minHeight: "100%" }}
@@ -121,7 +121,7 @@ const NoteForm = () => {
         <View className="px-4">
           <Text className="font-bold mb-1">Title</Text>
           <TextInput
-            className="border border-gray-400 rounded p-2 mb-4"
+            className="border border-gray-400 bg-white rounded p-2 mb-4"
             value={title}
             onChangeText={setTitle}
             placeholder="Fill the title"
@@ -130,7 +130,7 @@ const NoteForm = () => {
 
           <Text className="font-bold mb-1">Content</Text>
           <TextInput
-            className="border border-gray-400 rounded p-5 mb-4 h-32"
+            className="border border-gray-400 bg-white rounded p-5 mb-4 h-32"
             value={content}
             onChangeText={setContent}
             placeholder="Fill the content..."
@@ -145,7 +145,7 @@ const NoteForm = () => {
             onValueChange={setNecessity}
             itemStyle={{ color: "black" }}
           >
-            <Picker.Item label="Normal" value="Normal" color="black" />
+            <Picker.Item label="Normal" value="Normal" />
             <Picker.Item label="Important" value="Important" />
             <Picker.Item label="Reminder" value="Reminder" />
           </Picker>
@@ -156,11 +156,11 @@ const NoteForm = () => {
             ) : (
               <TouchableOpacity
                 onPress={handleSubmit}
-                className="bg-blue-500  py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
+                className="bg-primary  py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
                 accessibilityLabel="Save note"
                 accessibilityRole="button"
               >
-                <Text className="text-white font-bold text-lg text-center">
+                <Text className="text-textPrimary font-bold text-lg text-center">
                   Save
                 </Text>
               </TouchableOpacity>

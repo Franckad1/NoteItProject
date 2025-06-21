@@ -74,7 +74,7 @@ export default function Index() {
   }
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 " style={{ flex: 1, backgroundColor: "#FFD4CA" }}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ minHeight: "100%" }}
@@ -86,12 +86,13 @@ export default function Index() {
 
         {notes.length > 0 ? (
           <>
-            <TouchableOpacity onPress={clearAll} className="self-end mr-4 mb-4">
-              <Text className="text-red-500 font-bold">Clear All</Text>
+            <TouchableOpacity
+              onPress={clearAll}
+              className="self-end mr-4 mb-4 "
+            >
+              <Text className="text-textSecondary font-bold">Clear All</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={add} className="self-start mr-4 mb-4">
-              <Text className="text-blue-500 font-bold">Add</Text>
-            </TouchableOpacity>
+
             {notes
               .sort(
                 (a, b) =>
@@ -115,9 +116,11 @@ export default function Index() {
                   }}
                   className="bg-gray-100 p-3 rounded-lg mb-3 mx-4"
                 >
-                  <Text className="font-bold text-black">{note.title}</Text>
+                  <Text className="font-bold text-textPrimary">
+                    {note.title}
+                  </Text>
                   <Text
-                    className="text-black"
+                    className="text-textSecondary"
                     numberOfLines={1}
                     ellipsizeMode="tail"
                   >
@@ -137,6 +140,12 @@ export default function Index() {
                   </Text>
                 </TouchableOpacity>
               ))}
+            <TouchableOpacity
+              onPress={add}
+              className="self-center bg-primary py-3 px-6 mt-4 mr-4 mb-4 active:opacity-80 rounded-full"
+            >
+              <Text className="text-textPrimary font-bold">Add</Text>
+            </TouchableOpacity>
           </>
         ) : (
           <View className="flex-1 justify-center items-center ">
@@ -145,11 +154,14 @@ export default function Index() {
               className="w-24 h-20 rounded-full mb-4"
             />
 
-            <Text className="text-3xl text-primary font-bold">
+            <Text className="text-3xl text-textPrimary font-bold">
               No notes available
             </Text>
-            <TouchableOpacity onPress={add} className="mt-2 mr-4 mb-4">
-              <Text className="text-blue-500 text-3xl font-bold">Add</Text>
+            <TouchableOpacity
+              onPress={add}
+              className=" bg-primary py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
+            >
+              <Text className="text-textPrimary text-3xl font-bold">Add</Text>
             </TouchableOpacity>
           </View>
         )}

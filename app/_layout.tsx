@@ -22,7 +22,16 @@ export default function RootLayout() {
           name="(tabs)"
           options={{ headerShown: false, title: "Home" }}
         />
-        <Stack.Screen name="[id]" options={{ title: "Note Details" }} />
+        <Stack.Screen
+          name="[id]"
+          options={{
+            title: "Note Details",
+            headerStyle: { backgroundColor: "#114B5F" }, // Ton bleu foncé
+            headerTintColor: "#fff", // Texte et icône en blanc
+            headerTitleStyle: { fontWeight: "bold" },
+            headerShadowVisible: false,
+          }}
+        />
       </Stack>
     </PaperProvider>
   );

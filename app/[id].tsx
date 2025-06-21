@@ -49,14 +49,12 @@ const NoteDetails = () => {
   };
 
   return (
-    <View className="flex-1 p-4  mt-12">
+    <View className="flex-1 p-4 bg-secondary">
       <View className="flex-row justify-between items-center mb-4">
         {/* Groupe Title */}
         <View className="flex-row items-center">
           <Text className="font-bold mr-1">Title:</Text>
-          <Text className="border border-gray-300 rounded px-1 py-1">
-            {params?.title}
-          </Text>
+          <Text className=" bg-white rounded px-1 py-1">{params?.title}</Text>
         </View>
 
         {/* Groupe Date */}
@@ -66,7 +64,7 @@ const NoteDetails = () => {
         </View>
       </View>
 
-      <View className="bg-gray-200 rounded-lg p-4 mb-4 h-48 justify-center items-center">
+      <View className="bg-white rounded-lg p-4 mb-4 h-48 justify-center items-center">
         <Text className="text-black">{params?.content}</Text>
       </View>
 
@@ -88,7 +86,7 @@ const NoteDetails = () => {
       <View className="flex-row justify-around mt-4">
         <TouchableOpacity
           onPress={handleEdit}
-          className="bg-gray-300 rounded px-6 py-2 active:opacity-80"
+          className="bg-primary rounded-md px-6 py-2 active:opacity-80"
           accessibilityLabel="Edit note"
           accessibilityRole="button"
         >
@@ -97,11 +95,11 @@ const NoteDetails = () => {
 
         <TouchableOpacity
           onPress={handleDelete}
-          className="bg-gray-300 rounded px-6 py-2 active:opacity-80"
+          className=" rounded px-6 py-2 active:opacity-80"
           accessibilityLabel="Delete note"
           accessibilityRole="button"
         >
-          <Text className="text-black font-bold">Delete</Text>
+          <Text className="text-textSecondary font-bold">Delete</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -20,7 +20,7 @@ const TabIcon = ({ focused, icon, title }: any) => {
   }
   return (
     <View className="size-full justify-center items-center mt-4 rounded-full">
-      <Image source={icon} tintColor="#A8B5DB" />
+      <Image source={icon} tintColor="#7EE4EC" />
     </View>
   );
 };
@@ -35,15 +35,13 @@ const _layout = () => {
           alignItems: "center",
         },
         tabBarStyle: {
-          backgroundColor: "#0f0D23",
+          backgroundColor: "#FFD4CA",
           borderRadius: 50,
           marginHorizontal: 20,
           marginBottom: 36,
           height: 52,
           position: "absolute",
           overflow: "hidden",
-          borderWidth: 1,
-          borderColor: "0f0d23",
         },
       }}
     >
