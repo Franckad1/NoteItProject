@@ -16,18 +16,21 @@ import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import "react-toastify/dist/ReactToastify.css";
 import ToastManager, { Toast } from "toastify-react-native";
 
+// Composant du formulaire de création ou modification de note
 const NoteForm = () => {
-  const submitting = useRef(false);
-  const router = useRouter();
+  const submitting = useRef(false); // Référence pour suivre l'état de soumission
+  const router = useRouter(); // Pour la navigation
   const navigation = useNavigation();
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams(); // Récupère les paramètres passés
 
+  // États des champs du formulaire
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [necessity, setNecessity] = useState("Normal");
   const [idn, setIdn] = useState(null);
   const [date] = useState(new Date());
 
+  // Préremplit le formulaire si des paramètres sont fournis
   useEffect(() => {
     if (params?.title) setTitle(params.title);
     if (params?.content) setContent(params.content);
@@ -35,6 +38,7 @@ const NoteForm = () => {
     if (params?.idn) setIdn(params.idn);
   }, []);
 
+  // Gestion de la soumission du formulaire
   const handleSubmit = async () => {
     if (!title) {
       Toast.error("Fill the title");
@@ -45,6 +49,8 @@ const NoteForm = () => {
       return;
     }
     submitting.current = true;
+
+    // Crée ou modifie la note
     const noteId = idn || (Date.now() / 1000).toString();
     const note = {
       idn: noteId,
@@ -59,6 +65,7 @@ const NoteForm = () => {
     router.navigate("/(tabs)");
   };
 
+  // Gère la détection des changements non sauvegardés
   useEffect(() => {
     const unmodified = navigation.addListener("blur", () => {
       if (submitting.current) {
@@ -93,14 +100,15 @@ const NoteForm = () => {
     return unmodified;
   }, [navigation, title, content, necessity, params, router]);
 
+  // Réinitialise le formulaire
   const resetForm = () => {
     setTitle("");
     setContent("");
     setNecessity("Normal");
-
     setIdn(null);
   };
 
+  // Restaure les valeurs actuelles du formulaire
   const restoreForm = () => {
     setTitle(title);
     setContent(content);
@@ -108,17 +116,19 @@ const NoteForm = () => {
   };
 
   return (
-    <View className="flex-1" style={{ flex: 1, backgroundColor: "#FFD4CA" }}>
+    <View className="font-sans flex-1 bg-secondary">
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ minHeight: "100%" }}
       >
+        {/* Logo en haut */}
         <Image
           source={icons.logo2}
           className="w-12 h-10 mt-20 mb-5 self-center rounded-full"
         />
 
         <View className="px-4">
+          {/* Champ titre */}
           <Text className="font-bold mb-1">Title</Text>
           <TextInput
             className="border border-gray-400 bg-white rounded p-2 mb-4"
@@ -128,6 +138,7 @@ const NoteForm = () => {
             placeholderTextColor="gray"
           />
 
+          {/* Champ contenu */}
           <Text className="font-bold mb-1">Content</Text>
           <TextInput
             className="border border-gray-400 bg-white rounded p-5 mb-4 h-32"
@@ -139,6 +150,7 @@ const NoteForm = () => {
             numberOfLines={10}
           />
 
+          {/* Sélecteur importance */}
           <Text className="font-bold mb-1 mt-2">Necessity</Text>
           <Picker
             selectedValue={necessity}
@@ -150,13 +162,14 @@ const NoteForm = () => {
             <Picker.Item label="Reminder" value="Reminder" />
           </Picker>
 
+          {/* Bouton de soumission ou loader */}
           <View className="mt-4">
             {submitting.current ? (
               <ActivityIndicator animating={true} color={MD2Colors.red800} />
             ) : (
               <TouchableOpacity
                 onPress={handleSubmit}
-                className="bg-primary  py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
+                className="bg-primary py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
                 accessibilityLabel="Save note"
                 accessibilityRole="button"
               >

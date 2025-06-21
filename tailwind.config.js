@@ -21,6 +21,9 @@ module.exports = {
         },
         accent: "AB8BFF",
       },
+      fontFamily: {
+        sans: ["Montserrat_400Regular", "sans-serif"], // remplace la font "sans" par défaut
+      },
     },
   },
   plugins: [],

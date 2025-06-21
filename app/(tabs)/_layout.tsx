@@ -4,8 +4,10 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Image, ImageBackground, Text, View } from "react-native";
 
+// Composant pour afficher l'icône des onglets
 const TabIcon = ({ focused, icon, title }: any) => {
   if (focused) {
+    // Si l'onglet est actif : image avec fond surligné et titre
     return (
       <ImageBackground
         source={images.highlight}
@@ -18,22 +20,28 @@ const TabIcon = ({ focused, icon, title }: any) => {
       </ImageBackground>
     );
   }
+  // Si l'onglet n'est pas actif : icône seule avec couleur spécifique
   return (
     <View className="size-full justify-center items-center mt-4 rounded-full">
       <Image source={icon} tintColor="#7EE4EC" />
     </View>
   );
 };
+
+// Composant principal des onglets de navigation
 const _layout = () => {
   return (
     <Tabs
       screenOptions={{
+        // Désactive les labels sous les icônes
         tabBarShowLabel: false,
+        // Style appliqué à chaque élément de l'onglet
         tabBarItemStyle: {
           width: "100%",
           height: "100%",
           alignItems: "center",
         },
+        // Style de la barre des onglets
         tabBarStyle: {
           backgroundColor: "#FFD4CA",
           borderRadius: 50,
@@ -45,6 +53,7 @@ const _layout = () => {
         },
       }}
     >
+      {/* Premier onglet : Home */}
       <Tabs.Screen
         name="index"
         options={{
@@ -55,15 +64,7 @@ const _layout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: "Search",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon={icons.search} title="Search" />
-          ),
-        }}
-      />
+      {/* Deuxième onglet : New (formulaire de note) */}
       <Tabs.Screen
         name="noteForm"
         options={{
