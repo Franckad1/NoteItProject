@@ -28,3 +28,4 @@ NoteIt est une application mobile hybride développée avec React Native et Expo
    ```bash
    npx expo start
    ```
+Puis ouvrez expo sur votre mobile et scannez le QR code du terminal
