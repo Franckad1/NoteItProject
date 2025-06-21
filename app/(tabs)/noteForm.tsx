@@ -5,42 +5,34 @@ import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
-  Button,
   Image,
   ScrollView,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import "react-toastify/dist/ReactToastify.css";
 import ToastManager, { Toast } from "toastify-react-native";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const NoteForm = () => {
-  // Refs & navigation
   const submitting = useRef(false);
   const router = useRouter();
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
-  // State
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [necessity, setNecessity] = useState("normal");
-  const [buttonText, setButtonText] = useState("Create a note");
+  const [necessity, setNecessity] = useState("Normal");
   const [idn, setIdn] = useState(null);
   const [date] = useState(new Date());
 
-  // Préremplissage si modification
   useEffect(() => {
     if (params?.title) setTitle(params.title);
     if (params?.content) setContent(params.content);
     if (params?.necessity) setNecessity(params.necessity);
-
-    if (params?.idn) {
-      setIdn(params.idn); // Mode modification
-      setButtonText("Modify a note");
-    }
+    if (params?.idn) setIdn(params.idn);
   }, []);
 
   const handleSubmit = async () => {
@@ -52,8 +44,8 @@ const NoteForm = () => {
       Toast.error("Fill the content");
       return;
     }
-
-    const noteId = idn || (Date.now() / 1000).toString(); // Nouveau id si création
+    submitting.current = true;
+    const noteId = idn || (Date.now() / 1000).toString();
     const note = {
       idn: noteId,
       title,
@@ -67,17 +59,15 @@ const NoteForm = () => {
     router.navigate("/(tabs)");
   };
 
-  // Gestion de l'effet blur
   useEffect(() => {
     const unmodified = navigation.addListener("blur", () => {
       if (submitting.current) {
         resetForm();
-        console.log("blur ignoré");
         submitting.current = false;
         return;
       }
 
-      if (title !== "" || content !== "" || necessity !== "Normal") {
+      if (title || content || necessity !== "Normal") {
         Alert.alert(
           "Discard changes?",
           "You have unsaved changes. Are you sure to discard them and leave the screen?",
@@ -103,12 +93,11 @@ const NoteForm = () => {
     return unmodified;
   }, [navigation, title, content, necessity, params, router]);
 
-  // Helpers
   const resetForm = () => {
     setTitle("");
     setContent("");
-    setNecessity("normal");
-    setButtonText("Create a note");
+    setNecessity("Normal");
+
     setIdn(null);
   };
 
@@ -116,41 +105,41 @@ const NoteForm = () => {
     setTitle(title);
     setContent(content);
     setNecessity(necessity);
-    setButtonText(params?.idn ? "Modify a note" : "Create a note");
   };
 
-  // UI
   return (
-    <View>
+    <View className="flex-1">
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+        contentContainerStyle={{ minHeight: "100%" }}
       >
         <Image
           source={icons.logo2}
-          className="w-12 h-10 mt-20 mb-5 mx-auto rounded-full"
+          className="w-12 h-10 mt-20 mb-5 self-center rounded-full"
         />
 
-        <View>
-          <Text>Titre</Text>
+        <View className="px-4">
+          <Text className="font-bold mb-1">Title</Text>
           <TextInput
-            className="border m-1"
+            className="border border-gray-400 rounded p-2 mb-4"
             value={title}
             onChangeText={setTitle}
             placeholder="Fill the title"
-            placeholderTextColor="black"
+            placeholderTextColor="gray"
           />
 
-          <Text>Contenu</Text>
+          <Text className="font-bold mb-1">Content</Text>
           <TextInput
-            className="border m-1"
-            style={{ height: 100 }}
+            className="border border-gray-400 rounded p-5 mb-4 h-32"
             value={content}
             onChangeText={setContent}
             placeholder="Fill the content..."
-            placeholderTextColor="black"
+            placeholderTextColor="gray"
             multiline
+            numberOfLines={10}
           />
+
+          <Text className="font-bold mb-1 mt-2">Necessity</Text>
           <Picker
             selectedValue={necessity}
             onValueChange={setNecessity}
@@ -161,15 +150,23 @@ const NoteForm = () => {
             <Picker.Item label="Reminder" value="Reminder" />
           </Picker>
 
-          <Button
-            title={buttonText}
-            onPress={() => {
-              submitting.current = true;
-              handleSubmit();
-            }}
-          />
+          <View className="mt-4">
+            {submitting.current ? (
+              <ActivityIndicator animating={true} color={MD2Colors.red800} />
+            ) : (
+              <TouchableOpacity
+                onPress={handleSubmit}
+                className="bg-blue-500  py-3 px-6 mt-4 self-center active:opacity-80 rounded-full"
+                accessibilityLabel="Save note"
+                accessibilityRole="button"
+              >
+                <Text className="text-white font-bold text-lg text-center">
+                  Save
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-
         <ToastManager />
       </ScrollView>
     </View>
